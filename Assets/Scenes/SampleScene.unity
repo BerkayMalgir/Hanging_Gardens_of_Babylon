@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1184886134}
   - component: {fileID: 1184886138}
   - component: {fileID: 1184886139}
+  - component: {fileID: 1184886140}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -430,10 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c21fb5ffb93491db55e612e9cd8436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Side: 1
-  SwipeLeft: 0
-  SwipeRight: 0
-  XValue: 2
+  currentSide: 1
+  dodgeSpeed: 5
+  xValue: 2
+  jumpPower: 7
 --- !u!143 &1184886139
 CharacterController:
   m_ObjectHideFlags: 0
@@ -460,6 +461,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &1184886140
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184886133}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1556523748
 GameObject:
   m_ObjectHideFlags: 0

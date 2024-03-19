@@ -1,61 +1,141 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]   
-public enum SIDE{Left,Mid,Right}
+
+public enum Side { Left, Mid, Right }
 
 public class Character : MonoBehaviour
 {
-    public SIDE m_Side = SIDE.Mid;
+    public Side currentSide = Side.Mid;
 
-    private float NewXPos = 0f;
-    public bool SwipeLeft;
-    public bool SwipeRight;
-    public float XValue;
-    private CharacterController m_char;
-    
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float dodgeSpeed = 5f;
+    [SerializeField] private float xValue = 2f;
+    [SerializeField] private float jumpPower = 7f;
+
+    private CharacterController characterController;
+    private Animator animator;
+
+    private float newXPos = 0f;
+    private float yVelocity;
+
+    private const float rollDuration = 0.2f;
+    private float rollCounter;
+
+    private float originalColHeight;
+    private float originalColCenterY;
+
+    private void Start()
     {
-        m_char = GetComponent<CharacterController>();
-        transform.position=Vector3.zero;
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+
+        originalColHeight = characterController.height;
+        originalColCenterY = characterController.center.y;
+
+        transform.position = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        SwipeLeft = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
-        SwipeRight = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
+        HandleInput();
+        Move();
+        Jump();
+        Roll();
+    }
 
-        if (SwipeLeft)
+    private void HandleInput()
+    {
+        bool swipeLeft = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
+        bool swipeRight = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
+        bool swipeUp = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
+        bool swipeDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow);
+
+        if (swipeLeft)
         {
-            if (m_Side == SIDE.Mid)
+            if (currentSide == Side.Mid)
             {
-                NewXPos = -XValue;
-                m_Side = SIDE.Left;
+                newXPos = -xValue;
+                currentSide = Side.Left;
+                animator.Play("DodgeLeft");
             }
-            else if (m_Side == SIDE.Right)
+            else if (currentSide == Side.Right)
             {
-                NewXPos = 0;
-                m_Side = SIDE.Mid;
+                newXPos = 0;
+                currentSide = Side.Mid;
+                animator.Play("DodgeLeft");
             }
-            
         }
-        if (SwipeRight)
+        else if (swipeRight)
         {
-            if (m_Side == SIDE.Mid)
+            if (currentSide == Side.Mid)
             {
-                NewXPos = XValue;
-                m_Side = SIDE.Right;
+                newXPos = xValue;
+                currentSide = Side.Right;
+                animator.Play("DodgeRight");
             }
-            else if (m_Side == SIDE.Left)
+            else if (currentSide == Side.Left)
             {
-                NewXPos = 0;
-                m_Side = SIDE.Mid;
+                newXPos = 0;
+                currentSide = Side.Mid;
+                animator.Play("DodgeRight");
             }
-            
+        }
+    }
+
+    private void Move()
+    {
+        float newX = Mathf.Lerp(transform.position.x, newXPos, Time.deltaTime * dodgeSpeed);
+        Vector3 moveVector = new Vector3(newX - transform.position.x, 0, 0);
+        characterController.Move(moveVector);
+    }
+
+    private void Jump()
+    {
+        if (characterController.isGrounded)
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+            {
+                animator.Play("Landing");
+            }
+
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                yVelocity = jumpPower;
+                animator.CrossFadeInFixedTime("Jump", 0.1f);
+            }
+            else
+            {
+                yVelocity -= jumpPower * 2 * Time.deltaTime;
+                if (characterController.velocity.y < -0.1f)
+                {
+                    animator.Play("Falling");
+                }
+            }
         }
 
-        m_char.Move((NewXPos - transform.position.x) * Vector3.right);
+        characterController.Move(Vector3.up * yVelocity * Time.deltaTime);
+    }
+
+    private void Roll()
+    {
+        rollCounter -= Time.deltaTime;
+        if (rollCounter <= 0f)
+        {
+            rollCounter = 0f;
+            ResetCollider();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            rollCounter = rollDuration;
+            yVelocity = -10f;
+            characterController.center = new Vector3(0, originalColCenterY / 2f, 0);
+            characterController.height = originalColHeight / 2f;
+            animator.CrossFadeInFixedTime("roll", 0.1f);
+        }
+    }
+
+    private void ResetCollider()
+    {
+        characterController.center = new Vector3(0, originalColCenterY, 0);
+        characterController.height = originalColHeight;
     }
 }
