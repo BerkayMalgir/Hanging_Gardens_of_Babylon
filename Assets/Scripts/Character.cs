@@ -7,8 +7,9 @@ public class Character : MonoBehaviour
     public Side currentSide = Side.Mid;
 
     [SerializeField] private float dodgeSpeed = 5f;
-    [SerializeField] private float xValue = 2f;
+    [SerializeField] private float xValue = 3f;
     [SerializeField] private float jumpPower = 7f;
+    [SerializeField] private float runSpeed = 5f; // Yeni eklendi
 
     private CharacterController characterController;
     private Animator animator;
@@ -38,10 +39,11 @@ public class Character : MonoBehaviour
         HandleInput();
         Move();
         Jump();
-        Roll();
+        //Roll();
+        Run(); 
     }
 
-    private void HandleInput()
+     private void HandleInput()
     {
         bool swipeLeft = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
         bool swipeRight = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
@@ -54,14 +56,15 @@ public class Character : MonoBehaviour
             {
                 newXPos = -xValue;
                 currentSide = Side.Left;
-                animator.Play("DodgeLeft");
+               // animator.Play("DodgeLeft");
             }
             else if (currentSide == Side.Right)
             {
                 newXPos = 0;
                 currentSide = Side.Mid;
-                animator.Play("DodgeLeft");
+              //  animator.Play("DodgeLeft");
             }
+           // animator.Play("Run");
         }
         else if (swipeRight)
         {
@@ -69,14 +72,15 @@ public class Character : MonoBehaviour
             {
                 newXPos = xValue;
                 currentSide = Side.Right;
-                animator.Play("DodgeRight");
+                //animator.Play("DodgeRight");
             }
             else if (currentSide == Side.Left)
             {
                 newXPos = 0;
                 currentSide = Side.Mid;
-                animator.Play("DodgeRight");
+                //animator.Play("DodgeRight");
             }
+           // animator.Play("Run");
         }
     }
 
@@ -93,20 +97,20 @@ public class Character : MonoBehaviour
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
             {
-                animator.Play("Landing");
+                //animator.Play("Landing");
             }
 
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 yVelocity = jumpPower;
-                animator.CrossFadeInFixedTime("Jump", 0.1f);
+               // animator.CrossFadeInFixedTime("Jump", 0.1f);
             }
             else
             {
                 yVelocity -= jumpPower * 2 * Time.deltaTime;
                 if (characterController.velocity.y < -0.1f)
                 {
-                    animator.Play("Falling");
+                    //animator.Play("Falling");
                 }
             }
         }
@@ -137,5 +141,12 @@ public class Character : MonoBehaviour
     {
         characterController.center = new Vector3(0, originalColCenterY, 0);
         characterController.height = originalColHeight;
+    }
+
+
+    private void Run()
+    {
+        float moveSpeed = runSpeed * Time.deltaTime;
+        characterController.Move(transform.forward * moveSpeed);
     }
 }
