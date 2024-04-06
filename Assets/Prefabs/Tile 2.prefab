@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2989986646598045344}
   - component: {fileID: 5669136949008354683}
   - component: {fileID: 3136301890243400572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: palm (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5921512281440463776, guid: ea080455745ed47129b12329942919c4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6102627377956989961, guid: ea080455745ed47129b12329942919c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,6 +200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: palm (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921512281440463776, guid: ea080455745ed47129b12329942919c4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6102627377956989961, guid: ea080455745ed47129b12329942919c4,
         type: 3}
@@ -270,6 +280,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: palm
       objectReference: {fileID: 0}
+    - target: {fileID: 5921512281440463776, guid: ea080455745ed47129b12329942919c4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6102627377956989961, guid: ea080455745ed47129b12329942919c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -343,6 +358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: palm (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921512281440463776, guid: ea080455745ed47129b12329942919c4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6102627377956989961, guid: ea080455745ed47129b12329942919c4,
         type: 3}

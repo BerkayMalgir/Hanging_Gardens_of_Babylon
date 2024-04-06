@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class TileManager : MonoBehaviour
     public float xSpawn = 0;
     public float tileLenght = 18;
     public int numberOfTiles = 3;
+    public Transform playerTransform;
+    private List<GameObject> activeTiles = new List<GameObject>();
     
 
     void Start()
@@ -20,14 +24,31 @@ public class TileManager : MonoBehaviour
                 SpawnTileZ(Random.Range(0,tilePrefabs.Length));
         }
         
-       
     }
-   
+
+    private void Update()
+    {
+
+        if (playerTransform.position.z-35 > zSpawn - (numberOfTiles * tileLenght))
+        {
+            SpawnTileZ(Random.Range(0,tilePrefabs.Length));
+            DeleteTile();
+        }
+    }
+
 
     public void SpawnTileZ(int tileIndex)
     {
-        Instantiate(tilePrefabs[tileIndex], transform.forward * zSpawn, transform.rotation);
+        
+        GameObject go= Instantiate(tilePrefabs[tileIndex], transform.forward * zSpawn, transform.rotation);
+        activeTiles.Add(go);
         zSpawn += tileLenght;
+    }
+
+    private void DeleteTile()
+    {
+        Destroy(activeTiles[0]);
+        activeTiles.RemoveAt(0);
     }
   
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1375683324047307087}
   - component: {fileID: 7814575472859079026}
   - component: {fileID: 3545992132841643375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,11 +173,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterfall
       objectReference: {fileID: 0}
+    - target: {fileID: 8234325291843825695, guid: 07dc7e8d65b334d4ba4ebf0af9c985a2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8234325291843825695, guid: 07dc7e8d65b334d4ba4ebf0af9c985a2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7144257525494297263}
   m_SourcePrefab: {fileID: 100100000, guid: 07dc7e8d65b334d4ba4ebf0af9c985a2, type: 3}
+--- !u!1 &4898191857108047472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8234325291843825695, guid: 07dc7e8d65b334d4ba4ebf0af9c985a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 3584844082322564719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7144257525494297263
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898191857108047472}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.214992, y: 1.2979193, z: 4.163495}
+  m_Center: {x: -0.6075007, y: 0.14895964, z: -0.06885648}
 --- !u!4 &6374553967560388516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7622654339911322059, guid: 07dc7e8d65b334d4ba4ebf0af9c985a2,
