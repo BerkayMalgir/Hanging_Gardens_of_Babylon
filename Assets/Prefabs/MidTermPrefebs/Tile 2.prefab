@@ -911,10 +911,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterfall
       objectReference: {fileID: 0}
+    - target: {fileID: 8808612730175579220, guid: 6bdfce7ba2ae54e03af820ac6b534f8d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8808612730175579220, guid: 6bdfce7ba2ae54e03af820ac6b534f8d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8569422456991315090}
   m_SourcePrefab: {fileID: 100100000, guid: 6bdfce7ba2ae54e03af820ac6b534f8d, type: 3}
 --- !u!4 &3070235509451973492 stripped
 Transform:
@@ -922,6 +931,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5245309843107453796}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3671963225519226672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8808612730175579220, guid: 6bdfce7ba2ae54e03af820ac6b534f8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5245309843107453796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8569422456991315090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3671963225519226672}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12.632958, y: 1.9868029, z: 3.014574}
+  m_Center: {x: -0.8350401, y: -0.33354026, z: 0.06646472}
 --- !u!1001 &6026021705018348338
 PrefabInstance:
   m_ObjectHideFlags: 0
