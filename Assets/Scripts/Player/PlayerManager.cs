@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
 
-        coinsText.text = "Coins:" + numberOfCoins;
+        coinsText.text = "" + numberOfCoins;
         if (SwipeManager.tap  && !isGameStarted)
         {
             isGameStarted = true;
