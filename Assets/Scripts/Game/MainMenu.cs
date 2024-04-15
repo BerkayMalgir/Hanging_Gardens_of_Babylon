@@ -4,6 +4,7 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    private bool isMuted = false;
     private void Start()
     {
         Time.timeScale = 1;
@@ -16,5 +17,11 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    public void ToggleSound()
+    {
+        isMuted = !isMuted;
+        AudioListener.volume = isMuted ? 0 : 1; 
+        Debug.Log("Sound is " + (isMuted ? "muted" : "unmuted"));
     }
 }
