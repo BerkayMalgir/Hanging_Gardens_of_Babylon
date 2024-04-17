@@ -30,8 +30,7 @@ public class PlayerController : MonoBehaviour
         if (!PlayerManager.isGameStarted || PlayerManager.gameOver)
             return;
         
-        if (forwardSpeed < maxSpeed)
-            forwardSpeed += 0.1f * Time.deltaTime;
+        forwardSpeed = Mathf.Min(forwardSpeed + 0.1f * Time.deltaTime, maxSpeed);
 
         direction.z = forwardSpeed;
 
@@ -79,16 +78,22 @@ public class PlayerController : MonoBehaviour
                 controller.Move(diff);
         }
     }
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!PlayerManager.isGameStarted || PlayerManager.gameOver)
             return;
-        
+
         // Yerde mi kontrol ediliyor
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.20f, groundLayer);
+
+        // Yönü sabitle
+        direction.z = forwardSpeed;
+    
+        // Hareketi uygula
         controller.Move(direction * Time.deltaTime);
     }
+
+   
 
     private void Jump()
     {
