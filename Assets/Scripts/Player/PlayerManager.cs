@@ -1,52 +1,76 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static bool gameOver;
+    public static PlayerManager Instance; // Singleton instance
     public GameObject gameOverPanel;
-    public static bool isGameStarted;
     public GameObject startingText;
-
-    public static int numberOfCoins;
-    public Text coinsText;
-
-    
-
-  
-
-  
+    public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI invincibilityCountText;
+    public TextMeshProUGUI doubleItemCollectionCountText;
 
     void Start()
     {
-        gameOver = false;
+        InitializeGame();
+    }
+
+    void InitializeGame()
+    {
+        PlayerData.gameOver = false;
         Time.timeScale = 1;
-        isGameStarted = false;
+        PlayerData.isGameStarted = false;
 
-
+        PlayerData.LoadProgress();
+        UpdateUI();
     }
 
     void Update()
     {
-        if (gameOver)
+        if (PlayerData.gameOver)
         {
             Time.timeScale = 0;
-            gameOverPanel.SetActive(true);
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+            }
         }
 
-        coinsText.text = "" + numberOfCoins;
-        if (SwipeManager.tap  && !isGameStarted)
+        if (SwipeManager.tap && !PlayerData.isGameStarted)
         {
-            isGameStarted = true;
-            Destroy(startingText);
+            PlayerData.isGameStarted = true;
+            if (startingText != null)
+            {
+                startingText.SetActive(false); // Disable
+            }
         }
-        
-        
-        
-        
-        
+
+        // Update coin text every frame
+        if (coinsText != null)
+        {
+            coinsText.text = "Coins: " + PlayerData.numberOfCoins.ToString();
+        }
     }
 
+    void OnApplicationQuit()
+    {
+        PlayerData.SaveProgress();
+    }
 
+    private void UpdateUI()
+    {
+        if (invincibilityCountText != null)
+        {
+            invincibilityCountText.text = "Invincibility: " + PlayerData.invincibilityCount.ToString();
+        }
+        if (doubleItemCollectionCountText != null)
+        {
+            doubleItemCollectionCountText.text = "Double Items: " + PlayerData.doubleItemCollectionCount.ToString();
+        }
+        if (coinsText != null)
+        {
+            coinsText.text = "Coins: " + PlayerData.numberOfCoins.ToString();
+        }
+        Debug.Log("UI Updated: Invincibility=" + PlayerData.invincibilityCount + ", Double Items=" + PlayerData.doubleItemCollectionCount);
+    }
 }
