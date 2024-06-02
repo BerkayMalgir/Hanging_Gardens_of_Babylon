@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic; // Include this to use List
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -10,6 +10,8 @@ public class SceneObjectsActivator : MonoBehaviour
     public GameObject player; // Player reference
     public TextMeshProUGUI invincibilityCountText; // To display invincibility count
     public TextMeshProUGUI doubleItemCollectionCountText; // To display double item collection count
+    public TextMeshProUGUI invincibilityTimerText; // To display remaining invincibility time
+    public TextMeshProUGUI doubleItemCollectionTimerText; // To display remaining double item collection time
 
     private void Start()
     {
@@ -50,8 +52,18 @@ public class SceneObjectsActivator : MonoBehaviour
     private IEnumerator DoubleItemCollectionRoutine()
     {
         Debug.Log("DoubleItemCollectionRoutine started");
-        yield return new WaitForSeconds(10); // 10 seconds of double item collection
+        float duration = 10f; // 10 seconds of double item collection
+        float remainingTime = duration;
+        
+        while (remainingTime > 0)
+        {
+            doubleItemCollectionTimerText.text = "Double Items: " + remainingTime.ToString("F1") + "s";
+            yield return null;
+            remainingTime -= Time.deltaTime;
+        }
+
         PlayerData.doubleItemCollectionActive = false;
+        doubleItemCollectionTimerText.text = "";
         Debug.Log("DoubleItemCollectionRoutine ended");
     }
 
@@ -75,7 +87,15 @@ public class SceneObjectsActivator : MonoBehaviour
             playerRenderer.material.color = Color.red; // Change player color to indicate invincibility
         }
 
-        yield return new WaitForSeconds(10); // 10 seconds of invincibility
+        float duration = 10f; // 10 seconds of invincibility
+        float remainingTime = duration;
+        
+        while (remainingTime > 0)
+        {
+            invincibilityTimerText.text = "Invincibility: " + remainingTime.ToString("F1") + "s";
+            yield return null;
+            remainingTime -= Time.deltaTime;
+        }
 
         foreach (Collider col in validColliders)
         {
@@ -91,6 +111,7 @@ public class SceneObjectsActivator : MonoBehaviour
         }
 
         PlayerData.invincibilityActive = false;
+        invincibilityTimerText.text = "";
         Debug.Log("InvincibilityRoutine ended");
     }
 

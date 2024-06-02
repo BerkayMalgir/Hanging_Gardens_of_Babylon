@@ -4,31 +4,35 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
+    private Animator animator;
     private Vector3 direction;
     public float forwardSpeed;
     public float maxSpeed;
 
-    private int desiredLane = 1;
-    public float laneDistance = 4;
+    private int desiredLane = 1; // 0: Left, 1: Middle, 2: Right
+    public float laneDistance = 4; // The distance between two lanes
     public float jumpForce;
     public float gravity = -12f;
-    
+
     public bool isGrounded;
     public LayerMask groundLayer;
     public Transform groundCheck;
 
     private bool isSliding = false;
 
+    public float laneChangeSpeed = 10f; // Speed for lane change smoothing
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         if (!PlayerData.isGameStarted || PlayerData.gameOver)
             return;
-        
+
         forwardSpeed = Mathf.Min(forwardSpeed + 0.1f * Time.deltaTime, maxSpeed);
 
         direction.z = forwardSpeed;
@@ -90,19 +94,21 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+
         if (desiredLane == 0)
             targetPosition += Vector3.left * laneDistance;
         else if (desiredLane == 2)
             targetPosition += Vector3.right * laneDistance;
 
-        Vector3 diff = targetPosition - transform.position;
-        Vector3 moveDir = diff.normalized * 30 * Time.deltaTime;
-        controller.Move(moveDir.sqrMagnitude < diff.magnitude ? moveDir : diff);
+        // Smoothly move to the target lane position
+        Vector3 moveDirection = Vector3.Lerp(transform.position, targetPosition, laneChangeSpeed * Time.deltaTime);
+        controller.Move(moveDirection - transform.position);
     }
 
     private void Jump()
     {
         direction.y = jumpForce;
+        animator.SetTrigger("Jump"); // Trigger the jump animation
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -116,22 +122,24 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Slide()
     {
         isSliding = true;
-        float slideDuration = 0.5f;
-        float slideTimer = 0f;
+        animator.SetTrigger("Slide"); // Trigger the slide animation
 
+        // Save the original height and center
+        float originalHeight = controller.height;
         Vector3 originalCenter = controller.center;
-        controller.height = 0.9f;
-        Vector3 originalPosition = transform.position;
 
-        while (slideTimer < slideDuration)
-        {
-            slideTimer += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, originalPosition.y - 0.45f, transform.position.z);
-            yield return null;
-        }
+        // Adjust the height and center for sliding
+        controller.height = originalHeight / 2;
+        controller.center = new Vector3(originalCenter.x, originalCenter.y / 2, originalCenter.z);
 
-        controller.height = 1.85f;
-        transform.position = new Vector3(transform.position.x, originalPosition.y, transform.position.z);
+        // Slide duration should match the length of the slide animation
+        float slideDuration = 1.0f; // Adjust this value to match your slide animation duration
+        yield return new WaitForSeconds(slideDuration);
+
+        // Restore the original height and center
+        controller.height = originalHeight;
+        controller.center = originalCenter;
+
         isSliding = false;
     }
 }
