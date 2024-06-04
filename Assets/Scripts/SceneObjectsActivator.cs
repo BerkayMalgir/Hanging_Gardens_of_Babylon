@@ -57,7 +57,7 @@ public class SceneObjectsActivator : MonoBehaviour
         
         while (remainingTime > 0)
         {
-            doubleItemCollectionTimerText.text = "Double Items: " + remainingTime.ToString("F1") + "s";
+            doubleItemCollectionTimerText.text = remainingTime.ToString("F1") + "s";
             yield return null;
             remainingTime -= Time.deltaTime;
         }
@@ -92,7 +92,7 @@ public class SceneObjectsActivator : MonoBehaviour
         
         while (remainingTime > 0)
         {
-            invincibilityTimerText.text = "Invincibility: " + remainingTime.ToString("F1") + "s";
+            invincibilityTimerText.text = remainingTime.ToString("F1") + "s";
             yield return null;
             remainingTime -= Time.deltaTime;
         }
@@ -119,12 +119,12 @@ public class SceneObjectsActivator : MonoBehaviour
     {
         if (invincibilityCountText != null)
         {
-            invincibilityCountText.text = "Invincibility: " + PlayerData.invincibilityCount.ToString();
+            invincibilityCountText.text = PlayerData.invincibilityCount.ToString();
         }
         if (doubleItemCollectionCountText != null)
         {
-            doubleItemCollectionCountText.text = "Double Items: " + PlayerData.doubleItemCollectionCount.ToString();
+            doubleItemCollectionCountText.text = PlayerData.doubleItemCollectionCount.ToString();
         }
-        Debug.Log("UI Updated: Invincibility=" + PlayerData.invincibilityCount + ", Double Items=" + PlayerData.doubleItemCollectionCount);
+        Debug.Log("UI Updated: Invincibility=" + PlayerData.invincibilityCount + ", Double Coins=" + PlayerData.doubleItemCollectionCount);
     }
 }

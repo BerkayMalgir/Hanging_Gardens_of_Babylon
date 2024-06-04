@@ -1,9 +1,29 @@
 fileFormatVersion: 2
-guid: 74d539693e0ba4a47b72f0f913835523
+guid: d7ddc8b8eee2336498b0ca51c0d6fb8b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AB_habits simple
+    second: {fileID: 2100000, guid: 34a8cd16defc3874ead76afe30aafeed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.013
+    second: {fileID: 2100000, guid: f8fb983363a311741a981d9024b5fb97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.014
+    second: {fileID: 2100000, guid: ec1b4b932bb04b441ae312e56f582fa7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.015
+    second: {fileID: 2100000, guid: 53c00c4b12d443e41b042f54ce429209, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

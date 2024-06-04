@@ -43,6 +43,6 @@ public class ShopManager : MonoBehaviour
     {
         coinsText.text = "Coins: " + PlayerData.numberOfCoins.ToString();
         invincibilityCountText.text = "Invincibility: " + PlayerData.invincibilityCount.ToString();
-        doubleItemCollectionCountText.text = "Double Items: " + PlayerData.doubleItemCollectionCount.ToString();
+        doubleItemCollectionCountText.text = "Double Coins: " + PlayerData.doubleItemCollectionCount.ToString();
     }
 }
