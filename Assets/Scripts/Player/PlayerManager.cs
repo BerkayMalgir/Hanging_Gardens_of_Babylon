@@ -62,11 +62,11 @@ public class PlayerManager : MonoBehaviour
     {
         if (invincibilityCountText != null)
         {
-            invincibilityCountText.text = "Invincibility: " + PlayerData.invincibilityCount.ToString();
+            invincibilityCountText.text = "" + PlayerData.invincibilityCount.ToString();
         }
         if (doubleItemCollectionCountText != null)
         {
-            doubleItemCollectionCountText.text = "Double Items: " + PlayerData.doubleItemCollectionCount.ToString();
+            doubleItemCollectionCountText.text = "" + PlayerData.doubleItemCollectionCount.ToString();
         }
         if (coinsText != null)
         {
