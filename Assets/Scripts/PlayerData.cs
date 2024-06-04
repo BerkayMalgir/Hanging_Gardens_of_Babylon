@@ -3,8 +3,8 @@ using UnityEngine;
 public static class PlayerData
 {
     public static int numberOfCoins = 0;
-    public static int doubleItemCollectionCount = 1000; // Default for debugging
-    public static int invincibilityCount = 5; // Default for debugging
+    public static int doubleItemCollectionCount = 0; // Default for debugging
+    public static int invincibilityCount = 0; // Default for debugging
 
     public static bool doubleItemCollectionActive = false;
     public static bool invincibilityActive = false;
@@ -22,7 +22,7 @@ public static class PlayerData
     public static void LoadProgress()
     {
         numberOfCoins = PlayerPrefs.GetInt("Coins", 0);
-        doubleItemCollectionCount = PlayerPrefs.GetInt("DoubleItemCollectionCount", 1000);
-        invincibilityCount = PlayerPrefs.GetInt("InvincibilityCount", 5);
+        doubleItemCollectionCount = PlayerPrefs.GetInt("DoubleItemCollectionCount", 0);
+        invincibilityCount = PlayerPrefs.GetInt("InvincibilityCount", 0);
     }
 }
